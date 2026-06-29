@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchContent, fetchStructure } from '../utils/api';
 import MarkdownContent from '../components/MarkdownContent';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { ArrowLeft, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 
 export default function LabPage() {
@@ -12,9 +13,11 @@ export default function LabPage() {
   const [next, setNext] = useState(null);
   const [weekNum, setWeekNum] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setLoading(true);
+    setError(null);
     Promise.all([
       fetchContent(decodedPath),
       fetchStructure(),
@@ -33,7 +36,10 @@ export default function LabPage() {
         if (idx > 0) setPrev(items[idx - 1]);
         if (idx >= 0 && idx < items.length - 1) setNext(items[idx + 1]);
       })
-      .catch(() => {})
+      .catch((err) => {
+        setError(err.message || 'Failed to load content');
+        setContent('');
+      })
       .finally(() => setLoading(false));
   }, [path]);
 
@@ -47,6 +53,24 @@ export default function LabPage() {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="animate-pulse text-content-muted">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 text-center">
+        <div className="w-12 h-12 rounded-xl bg-content-muted flex items-center justify-center mb-4">
+          <span className="text-surface font-bold text-lg">!</span>
+        </div>
+        <h2 className="text-lg font-semibold text-content mb-2">Failed to load lesson</h2>
+        <p className="text-sm text-content-muted max-w-md mb-4">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-4 py-2 rounded-lg bg-content text-surface text-sm font-medium hover:opacity-90 transition-opacity"
+        >
+          Reload page
+        </button>
       </div>
     );
   }
@@ -85,7 +109,9 @@ export default function LabPage() {
 
       {/* Content */}
       <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
-        <MarkdownContent content={content} />
+        <ErrorBoundary>
+          <MarkdownContent content={content} />
+        </ErrorBoundary>
       </div>
 
       {/* Prev/Next navigation */}
