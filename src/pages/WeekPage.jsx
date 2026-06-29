@@ -53,7 +53,7 @@ export default function WeekPage() {
 
       {/* Week Header */}
       <div className="flex items-start gap-4">
-        <div className="p-3 rounded-xl bg-accent text-white shrink-0">
+        <div className="p-3 rounded-xl bg-content text-surface shrink-0">
           <Icon size={24} />
         </div>
         <div>
@@ -80,7 +80,7 @@ export default function WeekPage() {
                 <Link
                   key={lab.path}
                   to={`/lab/${encodeURIComponent(lab.path.replace('.md', ''))}`}
-                  className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-accent/50 hover:bg-accent-light transition-all duration-200 group"
+                  className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-content-muted hover:bg-accent-light transition-all duration-200 group"
                 >
                   <FileText size={18} className="text-content-muted group-hover:text-accent shrink-0" />
                   <div>

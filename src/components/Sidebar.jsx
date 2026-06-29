@@ -63,7 +63,7 @@ export default function Sidebar({ structure, isOpen, onClose }) {
           <div className="flex items-center justify-between px-4 h-16">
             <NavLink to="/" className="flex items-center gap-2.5" onClick={onClose}>
               <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
-                <span className="text-white font-bold text-sm">CO</span>
+                <span className="text-surface font-bold text-sm">CO</span>
               </div>
               <div>
                 <span className="font-semibold text-content">Cutie Ops</span>

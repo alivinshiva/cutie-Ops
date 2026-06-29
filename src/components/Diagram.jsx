@@ -2,14 +2,19 @@ import { useEffect, useRef } from 'react';
 import mermaid from 'mermaid';
 
 mermaid.initialize({
-  theme: 'default',
+  theme: 'base',
   themeVariables: {
-    primaryColor: '#6366f1',
-    primaryBorderColor: '#4f46e5',
-    primaryTextColor: '#1e293b',
-    lineColor: '#94a3b8',
-    secondaryColor: '#f1f5f9',
-    tertiaryColor: '#f8fafc',
+    background: '#ffffff',
+    primaryColor: '#333333',
+    primaryBorderColor: '#555555',
+    primaryTextColor: '#111111',
+    lineColor: '#999999',
+    secondaryColor: '#f0f0f0',
+    tertiaryColor: '#f8f8f8',
+    clusterBkg: '#f5f5f5',
+    clusterBorder: '#cccccc',
+    edgeLabelBackground: '#ffffff',
+    nodeBorder: '#555555',
   },
   flowchart: { useMaxWidth: true, htmlLabels: true },
   sequence: { useMaxWidth: true },

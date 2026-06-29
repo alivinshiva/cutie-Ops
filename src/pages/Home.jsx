@@ -5,16 +5,16 @@ import MarkdownContent from '../components/MarkdownContent';
 import { BookOpen, Terminal, Network, Cpu, Container, Shield, BarChart, Lock, Target, Calendar } from 'lucide-react';
 
 const weekData = [
-  { num: 1, title: 'Core Foundations + Nginx', icon: Terminal, color: 'from-indigo-500 to-purple-600' },
-  { num: 2, title: 'Networking + Cloud Basics', icon: Network, color: 'from-blue-500 to-cyan-600' },
-  { num: 3, title: 'Terraform Basics', icon: Cpu, color: 'from-purple-500 to-pink-600' },
-  { num: 4, title: 'Terraform + AWS Project', icon: Cpu, color: 'from-pink-500 to-rose-600' },
-  { num: 5, title: 'Kubernetes Fundamentals', icon: Container, color: 'from-cyan-500 to-blue-600' },
-  { num: 6, title: 'K8s Advanced + Helm', icon: Container, color: 'from-blue-500 to-indigo-600' },
-  { num: 7, title: 'GitOps + CI/CD', icon: Shield, color: 'from-green-500 to-emerald-600' },
-  { num: 8, title: 'Observability', icon: BarChart, color: 'from-amber-500 to-orange-600' },
-  { num: 9, title: 'DevSecOps', icon: Lock, color: 'from-red-500 to-rose-600' },
-  { num: 10, title: 'Final Polish', icon: Target, color: 'from-teal-500 to-green-600' },
+  { num: 1, title: 'Core Foundations + Nginx', icon: Terminal },
+  { num: 2, title: 'Networking + Cloud Basics', icon: Network },
+  { num: 3, title: 'Terraform Basics', icon: Cpu },
+  { num: 4, title: 'Terraform + AWS Project', icon: Cpu },
+  { num: 5, title: 'Kubernetes Fundamentals', icon: Container },
+  { num: 6, title: 'K8s Advanced + Helm', icon: Container },
+  { num: 7, title: 'GitOps + CI/CD', icon: Shield },
+  { num: 8, title: 'Observability', icon: BarChart },
+  { num: 9, title: 'DevSecOps', icon: Lock },
+  { num: 10, title: 'Final Polish', icon: Target },
 ];
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
       {/* Hero */}
       <div className="text-center py-8">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent mb-6">
-          <span className="text-2xl font-bold text-white">CO</span>
+          <span className="text-2xl font-bold text-surface">CO</span>
         </div>
         <h1 className="text-4xl font-bold text-content mb-3">Cutie Ops</h1>
         <p className="text-lg text-content-secondary max-w-2xl mx-auto">
@@ -57,12 +57,11 @@ export default function Home() {
               <Link
                 key={w.num}
                 to={`/week/${w.num}`}
-                className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-accent/50 transition-all duration-300 hover:shadow-lg hover:shadow-accent/5"
+                className="group relative overflow-hidden rounded-xl border border-border bg-card hover:border-content-muted transition-all duration-300 hover:shadow-lg"
               >
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-5 bg-gradient-to-br ${w.color} transition-opacity duration-300`} />
-                <div className="relative p-5">
+                <div className="p-5">
                   <div className="flex items-center gap-3 mb-3">
-                    <div className={`p-2.5 rounded-lg bg-gradient-to-br ${w.color} text-white`}>
+                    <div className="p-2.5 rounded-lg bg-content text-surface">
                       <Icon size={18} />
                     </div>
                     <span className="text-xs font-semibold text-content-muted bg-surface-secondary px-2 py-1 rounded-md">

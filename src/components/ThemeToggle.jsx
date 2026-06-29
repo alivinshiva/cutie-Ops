@@ -22,7 +22,7 @@ export default function ThemeToggle() {
             title={t.label}
             className={`p-2 rounded-lg transition-all duration-200 ${
               isActive
-                ? 'bg-accent text-white shadow-sm'
+                ? 'bg-accent text-surface shadow-sm'
                 : 'text-content-muted hover:text-content hover:bg-accent-light'
             }`}
           >

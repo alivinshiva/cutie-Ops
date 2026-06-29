@@ -106,7 +106,7 @@ export default function MarkdownContent({ content, className = '' }) {
                           if (line.startsWith('# ')) {
                             return (
                               <div key={i} className="flex gap-2">
-                                <span className="text-amber-500 shrink-0 select-none">#</span>
+                                <span className="text-content-muted shrink-0 select-none">#</span>
                                 <span className="text-content-secondary italic">{line.slice(2)}</span>
                               </div>
                             );
