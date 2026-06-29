@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-surface: #0f172a;
+  --color-surface-secondary: #1e293b;
+  --color-card: #1e293b;
+  --color-overlay: rgba(15, 23, 42, 0.8);
+  --color-content: #f1f5f9;
+  --color-content-secondary: #94a3b8;
+  --color-content-muted: #64748b;
+  --color-accent: #6366f1;
+  --color-accent-hover: #818cf8;
+  --color-accent-light: rgba(99, 102, 241, 0.1);
+  --color-border: #334155;
+  --color-code-bg: #0f172a;
+}
+
+.light {
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f8fafc;
+  --color-card: #ffffff;
+  --color-overlay: rgba(255, 255, 255, 0.8);
+  --color-content: #0f172a;
+  --color-content-secondary: #64748b;
+  --color-content-muted: #94a3b8;
+  --color-accent: #4f46e5;
+  --color-accent-hover: #6366f1;
+  --color-accent-light: rgba(79, 70, 229, 0.08);
+  --color-border: #e2e8f0;
+  --color-code-bg: #f1f5f9;
+}
+
+.reader {
+  --color-surface: #fef3c7;
+  --color-surface-secondary: #fffbeb;
+  --color-card: #fffbeb;
+  --color-overlay: rgba(254, 243, 199, 0.9);
+  --color-content: #78350f;
+  --color-content-secondary: #92400e;
+  --color-content-muted: #b45309;
+  --color-accent: #d97706;
+  --color-accent-hover: #b45309;
+  --color-accent-light: rgba(217, 119, 6, 0.1);
+  --color-border: #fde68a;
+  --color-code-bg: #fef3c7;
+}
+
+body {
+  @apply bg-surface text-content font-sans antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-content-muted);
+  opacity: 0.3;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* Markdown content styles */
+.prose pre {
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow-x: auto;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+.prose code {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875rem;
+}
+.prose p code {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+.prose h2 {
+  @apply text-xl font-semibold mt-10 mb-4 pb-2 border-b border-border;
+}
+.prose h3 {
+  @apply text-lg font-semibold mt-8 mb-3;
+}
+.prose a {
+  @apply text-accent hover:text-accent-hover underline underline-offset-2;
+}
+.prose ul {
+  @apply space-y-1.5;
+}
+.prose li {
+  @apply leading-relaxed;
+}
+.prose blockquote {
+  @apply border-l-4 border-accent bg-accent-light pl-4 py-2 my-4 rounded-r-lg italic text-content-secondary;
+}
+.prose table {
+  @apply w-full border-collapse my-6;
+}
+.prose th {
+  @apply bg-surface-secondary text-content font-semibold text-sm px-4 py-3 text-left border border-border;
+}
+.prose td {
+  @apply px-4 py-3 text-sm border border-border;
+}
+.prose hr {
+  @apply border-border my-8;
+}
+.prose img {
+  @apply rounded-xl my-6 border border-border;
+}
+
+/* Command block styling */
+.command-block {
+  position: relative;
+}
+.command-block:hover .copy-btn {
+  opacity: 1;
+}
+.command-block .prompt {
+  @apply text-accent font-medium select-none;
+}
+.command-block .output {
+  @apply text-content-secondary;
+}
+
+/* Copy button */
+.copy-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: var(--color-content-muted);
+  opacity: 0;
+  transition: all 200ms;
+}
+.copy-btn:hover {
+  color: var(--color-content);
+  background: var(--color-surface-secondary);
+}
+
+/* Mermaid diagram container */
+.mermaid {
+  @apply my-8 p-6 bg-white rounded-xl border border-border flex justify-center overflow-x-auto;
+}
+.reader .mermaid {
+  @apply bg-amber-50;
+}
+
+/* Sidebar links */
+.sidebar-link {
+  @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200;
+}
+.sidebar-link:hover {
+  @apply bg-accent-light text-accent;
+}
+.sidebar-link.active {
+  @apply bg-accent text-white;
+}
+
+/* Navigation item */
+.nav-section-title {
+  @apply text-xs font-semibold uppercase tracking-wider text-content-muted px-4 mb-2;
+}
