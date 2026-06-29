@@ -118,11 +118,11 @@ export default function Sidebar({ structure, isOpen, onClose }) {
                     {labs.map((lab) => (
                       <NavLink
                         key={lab.path}
-                        to={`/lab/${encodeURIComponent(lab.path.replace('.md', ''))}`}
+                        to={`/lab/${lab.path.replace('.md', '')}`}
                         className={subLinkClass}
                         onClick={onClose}
                       >
-                        <span className="truncate">{lab.name.replace('.md', '')}</span>
+                        <span className="truncate">{(lab.name || lab.path.split('/').pop()).replace('.md', '')}</span>
                       </NavLink>
                     ))}
                   </div>

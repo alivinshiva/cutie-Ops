@@ -12,7 +12,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/week/:id" element={<WeekPage />} />
-          <Route path="/lab/:path" element={<LabPage />} />
+          <Route path="/lab/*" element={<LabPage />} />
         </Route>
       </Routes>
     </ErrorBoundary>

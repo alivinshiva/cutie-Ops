@@ -80,7 +80,7 @@ export default function MarkdownContent({ content, className = '' }) {
                   return (
                     <div className="command-block not-prose my-4">
                       <div className="flex items-center justify-between px-4 py-2 bg-surface-secondary border border-border rounded-t-xl border-b-0">
-                        <span className="text-xs font-medium text-content-muted">Terminal</span>
+                        <span className="text-xs font-semibold" style={{color:'var(--color-term-prompt)'}}>Terminal</span>
                         <button
                           className="copy-btn relative opacity-100 p-1.5 rounded-lg hover:bg-surface text-content-muted hover:text-content"
                           onClick={() => {
@@ -98,7 +98,7 @@ export default function MarkdownContent({ content, className = '' }) {
                           if (line.startsWith('$ ')) {
                             return (
                               <div key={i} className="flex gap-2">
-                                <span className="text-accent shrink-0 select-none">$</span>
+                                <span className="shrink-0 select-none font-bold" style={{color:'var(--color-term-prompt)'}}>$</span>
                                 <span className="text-content">{line.slice(2)}</span>
                               </div>
                             );
@@ -106,14 +106,14 @@ export default function MarkdownContent({ content, className = '' }) {
                           if (line.startsWith('# ')) {
                             return (
                               <div key={i} className="flex gap-2">
-                                <span className="text-content-muted shrink-0 select-none">#</span>
-                                <span className="text-content-secondary italic">{line.slice(2)}</span>
+                                <span className="shrink-0 select-none font-bold" style={{color:'var(--color-term-comment)'}}>#</span>
+                                <span className="italic" style={{color:'var(--color-term-comment)'}}>{line.slice(2)}</span>
                               </div>
                             );
                           }
                           if (line.trim()) {
                             return (
-                              <div key={i} className="text-content-secondary pl-0">
+                              <div key={i} style={{color:'var(--color-term-output)'}} className="pl-0">
                                 {line}
                               </div>
                             );
@@ -128,7 +128,7 @@ export default function MarkdownContent({ content, className = '' }) {
                 return (
                   <div className="not-prose relative group my-4">
                     <div className="flex items-center justify-between px-4 py-2 bg-surface-secondary border border-border rounded-t-xl border-b-0">
-                      <span className="text-xs font-medium text-content-muted">Code</span>
+                      <span className="text-xs font-semibold" style={{color:'var(--color-syntax-function)'}}>Code</span>
                       <button
                         className="p-1.5 rounded-lg text-content-muted hover:text-content hover:bg-surface transition-colors"
                         onClick={() => {

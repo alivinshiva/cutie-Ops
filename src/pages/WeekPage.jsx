@@ -75,11 +75,11 @@ export default function WeekPage() {
           <h2 className="text-lg font-semibold text-content mb-4">Hands-On Labs</h2>
           <div className="grid gap-3">
             {labs.map((lab) => {
-              const name = lab.name.replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+              const name = (lab.name || lab.path.split('/').pop()).replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
               return (
                 <Link
                   key={lab.path}
-                  to={`/lab/${encodeURIComponent(lab.path.replace('.md', ''))}`}
+                  to={`/lab/${lab.path.replace('.md', '')}`}
                   className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card hover:border-content-muted hover:bg-accent-light transition-all duration-200 group"
                 >
                   <FileText size={18} className="text-content-muted group-hover:text-accent shrink-0" />

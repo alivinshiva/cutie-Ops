@@ -10,20 +10,21 @@ export default function Diagram({ definition }) {
       try {
         const mermaid = await import('mermaid');
         if (!initialized.current) {
+          const isLight = document.documentElement.classList.contains('light') || document.documentElement.classList.contains('reader');
           mermaid.default.initialize({
             theme: 'base',
             themeVariables: {
-              background: '#ffffff',
-              primaryColor: '#333333',
-              primaryBorderColor: '#555555',
-              primaryTextColor: '#111111',
-              lineColor: '#999999',
-              secondaryColor: '#f0f0f0',
-              tertiaryColor: '#f8f8f8',
-              clusterBkg: '#f5f5f5',
-              clusterBorder: '#cccccc',
-              edgeLabelBackground: '#ffffff',
-              nodeBorder: '#555555',
+              background: isLight ? '#ffffff' : '#1a1a1a',
+              primaryColor: isLight ? '#e8e8e8' : '#333333',
+              primaryBorderColor: isLight ? '#999999' : '#666666',
+              primaryTextColor: isLight ? '#111111' : '#f5f5f5',
+              lineColor: isLight ? '#666666' : '#999999',
+              secondaryColor: isLight ? '#f5f5f5' : '#2a2a2a',
+              tertiaryColor: isLight ? '#fafafa' : '#222222',
+              clusterBkg: isLight ? '#f0f0f0' : '#1a1a1a',
+              clusterBorder: isLight ? '#cccccc' : '#444444',
+              edgeLabelBackground: isLight ? '#ffffff' : '#1a1a1a',
+              nodeBorder: isLight ? '#888888' : '#666666',
             },
             flowchart: { useMaxWidth: true, htmlLabels: true },
             sequence: { useMaxWidth: true },

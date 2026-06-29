@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { fetchContent, fetchStructure } from '../utils/api';
 import MarkdownContent from '../components/MarkdownContent';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { ArrowLeft, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 
 export default function LabPage() {
-  const { path } = useParams();
-  const decodedPath = decodeURIComponent(path) + '.md';
+  const location = useLocation();
+  const pathname = location.pathname.replace(/^\/lab\//, '').replace(/\/$/, '');
+  const decodedPath = decodeURIComponent(pathname) + '.md';
   const [content, setContent] = useState('');
   const [prev, setPrev] = useState(null);
   const [next, setNext] = useState(null);
@@ -41,7 +42,7 @@ export default function LabPage() {
         setContent('');
       })
       .finally(() => setLoading(false));
-  }, [path]);
+  }, [location.pathname]);
 
   const name = decodedPath
     .replace('.md', '')
@@ -119,21 +120,21 @@ export default function LabPage() {
         <div>
           {prev && (
             <Link
-              to={`/lab/${encodeURIComponent(prev.path.replace('.md', ''))}`}
+                  to={`/lab/${prev.path.replace('.md', '')}`}
               className="flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors group"
             >
               <ChevronLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
-              <span className="truncate max-w-[200px]">{prev.name.replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
+              <span className="truncate max-w-[200px]">{(prev.name || prev.path.split('/').pop()).replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
             </Link>
           )}
         </div>
         <div className="text-right">
           {next && (
             <Link
-              to={`/lab/${encodeURIComponent(next.path.replace('.md', ''))}`}
+              to={`/lab/${next.path.replace('.md', '')}`}
               className="flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors group"
             >
-              <span className="truncate max-w-[200px]">{next.name.replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
+              <span className="truncate max-w-[200px]">{(next.name || next.path.split('/').pop()).replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
               <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
             </Link>
           )}
