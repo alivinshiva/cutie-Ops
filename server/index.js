@@ -6,7 +6,6 @@ const PORT = process.env.PORT || 3001;
 const OWNER = 'alivinshiva';
 const REPO = 'devops-prep-plan';
 const BRANCH = 'main';
-const RAW_BASE = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}`;
 const API_BASE = `https://api.github.com/repos/${OWNER}/${REPO}`;
 
 app.use(cors());
@@ -37,12 +36,20 @@ async function fetchTree(force = false) {
   return data;
 }
 
-async function fetchRawContent(path) {
+async function fetchAPIContent(path) {
   if (contentCache[path]) return contentCache[path];
-  const res = await ghFetch(`${RAW_BASE}/${path}`);
-  const text = await res.text();
-  contentCache[path] = text;
-  return text;
+  const res = await ghFetch(`${API_BASE}/contents/${path}`);
+  const data = await res.json();
+  if (data.encoding === 'base64' && data.content) {
+    const text = Buffer.from(data.content, 'base64').toString('utf-8');
+    contentCache[path] = text;
+    return text;
+  }
+  if (typeof data.content === 'string') {
+    contentCache[path] = data.content;
+    return data.content;
+  }
+  throw new Error(`Unexpected content format for ${path}`);
 }
 
 app.get('/api/structure', async (req, res) => {
@@ -58,7 +65,7 @@ app.get('/api/content', async (req, res) => {
   const { path } = req.query;
   if (!path) return res.status(400).json({ error: 'path required' });
   try {
-    const content = await fetchRawContent(path);
+    const content = await fetchAPIContent(path);
     res.json({ path, content });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -67,7 +74,7 @@ app.get('/api/content', async (req, res) => {
 
 app.get('/api/week-plan', async (req, res) => {
   try {
-    const content = await fetchRawContent('devops_8_10_week_plan.md');
+    const content = await fetchAPIContent('devops_8_10_week_plan.md');
     res.json({ content });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -76,7 +83,7 @@ app.get('/api/week-plan', async (req, res) => {
 
 app.get('/api/readme', async (req, res) => {
   try {
-    const content = await fetchRawContent('README.md');
+    const content = await fetchAPIContent('README.md');
     res.json({ content });
   } catch (err) {
     res.status(500).json({ error: err.message });
