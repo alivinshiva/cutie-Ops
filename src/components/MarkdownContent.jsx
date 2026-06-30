@@ -1,11 +1,18 @@
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Copy, Check } from 'lucide-react';
 import Diagram from './Diagram';
 
 function headingId(children) {
-  return String(children).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const text = Array.isArray(children) ? children.map(c => typeof c === 'string' ? c : '').join('') : String(children);
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function extractText(children) {
+  if (typeof children === 'string') return children;
+  if (Array.isArray(children)) return children.map(c => typeof c === 'string' ? c : '').join('');
+  return String(children);
 }
 
 function simpleHash(str) {
@@ -90,15 +97,15 @@ export default function MarkdownContent({ content, className = '' }) {
             key={seg.key}
             remarkPlugins={[remarkGfm]}
             components={{
-              h1: ({ children, className, ...props }) => {
+              h1: ({ children, ...props }) => {
                 const id = headingId(children);
-                return <h1 id={id} className={className} {...props}>{children}</h1>;
+                return <h1 id={id}>{children}</h1>;
               },
-              h2: ({ children, className, ...props }) => {
+              h2: ({ children, ...props }) => {
                 const id = headingId(children);
                 const checked = !!progress[id];
                 return (
-                  <h2 id={id} className={className} {...props}>
+                  <h2 id={id}>
                     <input
                       type="checkbox"
                       checked={checked}
@@ -109,9 +116,9 @@ export default function MarkdownContent({ content, className = '' }) {
                   </h2>
                 );
               },
-              h3: ({ children, className, ...props }) => {
+              h3: ({ children, ...props }) => {
                 const id = headingId(children);
-                return <h3 id={id} className={className} {...props}>{children}</h3>;
+                return <h3 id={id}>{children}</h3>;
               },
               code({ className, children, ...props }) {
                 const isInline = !className;
@@ -208,6 +215,18 @@ export default function MarkdownContent({ content, className = '' }) {
               },
               a({ href, children }) {
                 const isExternal = href?.startsWith('http');
+                const isAnchor = href?.startsWith('#');
+                if (isAnchor) {
+                  return (
+                    <a href={href} onClick={(e) => {
+                      e.preventDefault();
+                      const el = document.getElementById(href.slice(1));
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}>
+                      {children}
+                    </a>
+                  );
+                }
                 return (
                   <a href={href} target={isExternal ? '_blank' : undefined} rel={isExternal ? 'noopener noreferrer' : undefined}>
                     {children}
