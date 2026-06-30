@@ -57,6 +57,8 @@ export default function TopicNav({ content }) {
         <div className="text-sm font-semibold uppercase tracking-wider text-content-muted mb-5">
           On this page
         </div>
+        <div className="relative">
+          <div className="absolute left-[9px] top-2 bottom-2 w-px bg-border" />
         <ul className="space-y-1">
           {topics.map((topic) => {
             const isActive = activeId === topic.id;
@@ -92,6 +94,7 @@ export default function TopicNav({ content }) {
             );
           })}
         </ul>
+        </div>
       </div>
     </nav>
   );
