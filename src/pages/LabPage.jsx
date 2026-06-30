@@ -90,7 +90,7 @@ export default function LabPage() {
             </>
           )}
           <span>/</span>
-          <span className="text-content truncate max-w-[200px]">{name}</span>
+          <span className="text-content">{name}</span>
         </div>
 
         {/* Back to week */}
