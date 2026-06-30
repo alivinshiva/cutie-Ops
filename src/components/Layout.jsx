@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Sidebar from './Sidebar';
+import ThemeToggle from './ThemeToggle';
 import { fetchStructure } from '../utils/api';
 
 export default function Layout() {
@@ -33,6 +34,7 @@ export default function Layout() {
               <Menu size={20} />
             </button>
             <div className="flex-1" />
+            <ThemeToggle />
           </div>
         </header>
 
@@ -41,12 +43,6 @@ export default function Layout() {
             <Outlet />
           </div>
         </main>
-
-        <footer className="border-t border-border py-4 px-6">
-          <p className="text-xs text-content-muted text-center">
-            Cutie Ops — DevOps Preparation Plan. MIT License.
-          </p>
-        </footer>
       </div>
     </div>
   );
