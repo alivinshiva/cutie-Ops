@@ -25,7 +25,7 @@ export default function TopicNav({ content }) {
   useEffect(() => {
     if (topics.length === 0) return;
     const ids = topics.map(t => t.id);
-    const observers = [];
+    const els = [];
     const handleIntersect = (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
@@ -41,24 +41,24 @@ export default function TopicNav({ content }) {
       const el = document.getElementById(id);
       if (el) {
         observer.observe(el);
-        observers.push(el);
+        els.push(el);
       }
     }
     return () => {
-      for (const el of observers) observer.unobserve(el);
+      for (const el of els) observer.unobserve(el);
     };
   }, [topics]);
 
   if (topics.length === 0) return null;
 
   return (
-    <nav className="sticky top-24 w-48 shrink-0 max-h-[calc(100vh-8rem)] overflow-y-auto">
-      <div className="text-xs font-semibold uppercase tracking-wider text-content-muted mb-4">
+    <nav className="fixed right-0 top-14 bottom-0 w-[20vw] max-w-60 border-l border-border bg-surface/95 p-5 overflow-y-auto z-20">
+      <div className="text-sm font-semibold uppercase tracking-wider text-content-muted mb-5">
         On this page
       </div>
       <div className="relative">
-        <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
-        <ul className="space-y-0">
+        <div className="absolute left-[9px] top-2 bottom-2 w-px bg-border" />
+        <ul className="space-y-1">
           {topics.map((topic) => {
             const isActive = activeId === topic.id;
             return (
@@ -70,20 +70,20 @@ export default function TopicNav({ content }) {
                     const el = document.getElementById(topic.id);
                     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }}
-                  className={`flex items-start gap-3 py-1.5 group transition-colors ${
+                  className={`flex items-start gap-3 py-2 group transition-colors ${
                     isActive ? 'text-content' : 'text-content-muted hover:text-content'
                   }`}
                 >
-                  <span className="relative flex items-center justify-center shrink-0 mt-1">
+                  <span className="relative flex items-center justify-center shrink-0 mt-0.5">
                     <span
-                      className={`block w-[15px] h-[15px] rounded-full border-2 transition-all ${
+                      className={`block w-[19px] h-[19px] rounded-full border-2 transition-all ${
                         isActive
                           ? 'border-accent bg-accent'
                           : 'border-border bg-surface group-hover:border-content-muted'
                       }`}
                     />
                   </span>
-                  <span className={`text-xs leading-snug transition-colors ${
+                  <span className={`text-sm leading-snug transition-colors ${
                     isActive ? 'font-semibold' : ''
                   }`}>
                     {topic.text}

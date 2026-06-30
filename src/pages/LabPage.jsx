@@ -78,9 +78,8 @@ export default function LabPage() {
   }
 
   return (
-    <div className="flex justify-center">
-      <div className="flex gap-8 w-full max-w-[72rem]">
-        <div className="flex-1 min-w-0 max-w-3xl space-y-6">
+    <div>
+      <div className="max-w-3xl space-y-6">
         {/* Breadcrumb */}
         <div className="flex flex-wrap items-center gap-2 text-sm text-content-muted">
           <Link to="/" className="hover:opacity-80 transition-opacity">Home</Link>
@@ -145,11 +144,7 @@ export default function LabPage() {
         </div>
       </div>
 
-      {/* Secondary timeline nav */}
-      <div className="hidden xl:block w-48 shrink-0">
-        <TopicNav content={content} />
-      </div>
-    </div>
+      <TopicNav content={content} />
     </div>
   );
 }
