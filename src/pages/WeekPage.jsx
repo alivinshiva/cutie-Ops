@@ -47,7 +47,7 @@ export default function WeekPage() {
   const Icon = weekIcons[num] || BookOpen;
 
   return (
-    <div className="space-y-8">
+    <div className="max-w-4xl mx-auto space-y-8">
       {/* Back link */}
       <Link to="/" className="inline-flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors">
         <ArrowLeft size={16} />

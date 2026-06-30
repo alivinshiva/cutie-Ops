@@ -34,7 +34,7 @@ export default function Home() {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="max-w-4xl mx-auto space-y-12">
       {/* Hero */}
       <div className="text-center py-8">
         <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-accent mb-6">
