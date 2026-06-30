@@ -78,8 +78,8 @@ export default function LabPage() {
   }
 
   return (
-    <div>
-      <div className="max-w-3xl space-y-6">
+    <div className="xl:mr-60">
+      <div className="max-w-3xl mx-auto space-y-6">
         {/* Breadcrumb */}
         <div className="flex flex-wrap items-center gap-2 text-sm text-content-muted">
           <Link to="/" className="hover:opacity-80 transition-opacity">Home</Link>

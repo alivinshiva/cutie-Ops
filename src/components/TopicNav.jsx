@@ -52,12 +52,11 @@ export default function TopicNav({ content }) {
   if (topics.length === 0) return null;
 
   return (
-    <nav className="fixed right-0 top-14 bottom-0 w-[20vw] max-w-60 border-l border-border bg-surface/95 p-5 overflow-y-auto z-20">
-      <div className="text-sm font-semibold uppercase tracking-wider text-content-muted mb-5">
-        On this page
-      </div>
-      <div className="relative">
-        <div className="absolute left-[9px] top-2 bottom-2 w-px bg-border" />
+    <nav className="fixed right-0 top-14 bottom-0 w-[20vw] max-w-60 border-l border-border bg-surface/95 z-20 flex flex-col overflow-y-auto">
+      <div className="mt-auto mb-auto p-5 w-full">
+        <div className="text-sm font-semibold uppercase tracking-wider text-content-muted mb-5">
+          On this page
+        </div>
         <ul className="space-y-1">
           {topics.map((topic) => {
             const isActive = activeId === topic.id;
