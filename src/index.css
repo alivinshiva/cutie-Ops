@@ -146,12 +146,12 @@ body {
 }
 .prose a {
   color: var(--color-link);
-  text-decoration: underline;
-  text-underline-offset: 2px;
+  text-decoration: none;
   transition: color 200ms;
 }
 .prose a:hover {
   color: var(--color-link-hover);
+  text-decoration: none;
 }
 .prose ul {
   list-style-type: disc;
@@ -268,6 +268,41 @@ body {
 .sidebar-link.active {
   background: var(--color-accent);
   color: var(--color-surface);
+}
+
+/* Progress checkbox */
+.progress-checkbox {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--color-content-muted);
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+  transition: all 200ms;
+  vertical-align: middle;
+}
+.progress-checkbox:checked {
+  background: #22c55e;
+  border-color: #22c55e;
+}
+.progress-checkbox:checked::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  display: block;
+  margin-top: -2px;
+}
+.progress-checkbox:hover {
+  border-color: var(--color-accent);
 }
 
 /* Navigation section title */

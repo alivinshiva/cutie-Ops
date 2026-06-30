@@ -7,6 +7,7 @@ import { ArrowLeft, FileText, BookOpen, Terminal, Network, Cpu, Container, Shiel
 const weekIcons = {
   1: Terminal, 2: Network, 3: Cpu, 4: Cpu, 5: Container,
   6: Container, 7: Shield, 8: BarChart, 9: Lock, 10: Target,
+  11: BarChart, 12: Target,
 };
 
 const weekNames = {
@@ -20,6 +21,8 @@ const weekNames = {
   8: 'Observability',
   9: 'DevSecOps',
   10: 'Final Polish',
+  11: 'Advanced Cloud',
+  12: 'Interview Preparation',
 };
 
 export default function WeekPage() {

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ThemeToggle from './ThemeToggle';
 
 const weekIcons = {
+  0: BookOpen,
   1: Terminal,
   2: Network,
   3: Cpu,
@@ -14,9 +15,12 @@ const weekIcons = {
   8: BarChart,
   9: Lock,
   10: Target,
+  11: BarChart,
+  12: Target,
 };
 
 const weekNames = {
+  0: 'Prerequisites',
   1: 'Core Foundations + Nginx',
   2: 'Networking + Cloud Basics',
   3: 'Terraform Basics',
@@ -27,9 +31,11 @@ const weekNames = {
   8: 'Observability',
   9: 'DevSecOps',
   10: 'Final Polish',
+  11: 'Advanced Cloud',
+  12: 'Interview Preparation',
 };
 
-const weeks = Array.from({ length: 10 }, (_, i) => i + 1);
+const weeks = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 export default function Sidebar({ structure, isOpen, onClose }) {
   const [expanded, setExpanded] = useState({});
@@ -39,7 +45,7 @@ export default function Sidebar({ structure, isOpen, onClose }) {
   };
 
   const labsForWeek = (num) => {
-    const prefix = String(num).padStart(2, '0');
+    const prefix = num === 0 ? '00' : String(num).padStart(2, '0');
     return (structure || []).filter((item) => item.path.startsWith(`${prefix}-`));
   };
 
@@ -87,14 +93,15 @@ export default function Sidebar({ structure, isOpen, onClose }) {
             const Icon = weekIcons[num] || BookOpen;
             const labs = labsForWeek(num);
             const isExpanded = expanded[num];
+            const isPrereq = num === 0;
 
             return (
               <div key={num}>
                 <NavLink
-                  to={`/week/${num}`}
+                  to={isPrereq ? '#' : `/week/${num}`}
                   className={linkClass}
                   onClick={(e) => {
-                    if (labs.length > 0) {
+                    if (isPrereq || labs.length > 0) {
                       e.preventDefault();
                       toggleWeek(num);
                     }
@@ -103,8 +110,14 @@ export default function Sidebar({ structure, isOpen, onClose }) {
                 >
                   <Icon size={18} />
                   <span className="flex-1 truncate">
-                    <span className="text-content-muted font-normal mr-1.5">W{num}</span>
-                    {weekNames[num]}
+                    {isPrereq ? (
+                      weekNames[num]
+                    ) : (
+                      <>
+                        <span className="text-content-muted font-normal mr-1.5">W{num}</span>
+                        {weekNames[num]}
+                      </>
+                    )}
                   </span>
                   {labs.length > 0 && (
                     <span onClick={(e) => { e.stopPropagation(); e.preventDefault(); toggleWeek(num); }}>

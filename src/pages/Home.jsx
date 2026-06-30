@@ -15,6 +15,8 @@ const weekData = [
   { num: 8, title: 'Observability', icon: BarChart },
   { num: 9, title: 'DevSecOps', icon: Lock },
   { num: 10, title: 'Final Polish', icon: Target },
+  { num: 11, title: 'Advanced Cloud', icon: BarChart },
+  { num: 12, title: 'Interview Preparation', icon: Target },
 ];
 
 export default function Home() {
@@ -40,7 +42,7 @@ export default function Home() {
         </div>
         <h1 className="text-4xl font-bold text-content mb-3">Cutie Ops</h1>
         <p className="text-lg text-content-secondary max-w-2xl mx-auto">
-          A focused, structured 8-10 week plan to become interview-ready for DevOps/SRE roles at top MNCs.
+          A focused, structured 12-week plan to become interview-ready for DevOps/SRE roles at top MNCs.
         </p>
       </div>
 
@@ -48,7 +50,7 @@ export default function Home() {
       <section>
         <div className="flex items-center gap-3 mb-6">
           <Calendar size={20} className="text-accent" />
-          <h2 className="text-xl font-semibold text-content">10-Week Roadmap</h2>
+          <h2 className="text-xl font-semibold text-content">DevOps Roadmap</h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {weekData.map((w) => {

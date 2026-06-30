@@ -80,11 +80,11 @@ export default function LabPage() {
     <div className="space-y-6">
       {/* Breadcrumb */}
       <div className="flex flex-wrap items-center gap-2 text-sm text-content-muted">
-        <Link to="/" className="hover:text-accent transition-colors">Home</Link>
+        <Link to="/" className="hover:opacity-80 transition-opacity">Home</Link>
         {weekNum && (
           <>
             <span>/</span>
-            <Link to={`/week/${weekNum}`} className="hover:text-accent transition-colors">Week {weekNum}</Link>
+            <Link to={`/week/${weekNum}`} className="hover:opacity-80 transition-opacity">Week {weekNum}</Link>
           </>
         )}
         <span>/</span>

@@ -1,11 +1,41 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Copy, Check } from 'lucide-react';
 import Diagram from './Diagram';
 
+function headingId(children) {
+  return String(children).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function simpleHash(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return hash;
+}
+
 export default function MarkdownContent({ content, className = '' }) {
   const [copied, setCopied] = useState(null);
+  const [progress, setProgress] = useState(() => {
+    if (!content) return {};
+    try {
+      const key = `md-progress-${simpleHash(content)}`;
+      return JSON.parse(localStorage.getItem(key) || '{}');
+    } catch { return {}; }
+  });
+
+  const toggleItem = useCallback((id) => {
+    setProgress(prev => {
+      const next = { ...prev, [id]: !prev[id] };
+      try {
+        localStorage.setItem(`md-progress-${simpleHash(content)}`, JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  }, [content]);
 
   const processed = useMemo(() => {
     if (!content) return '';
@@ -60,6 +90,29 @@ export default function MarkdownContent({ content, className = '' }) {
             key={seg.key}
             remarkPlugins={[remarkGfm]}
             components={{
+              h1: ({ children, className, ...props }) => {
+                const id = headingId(children);
+                return <h1 id={id} className={className} {...props}>{children}</h1>;
+              },
+              h2: ({ children, className, ...props }) => {
+                const id = headingId(children);
+                const checked = !!progress[id];
+                return (
+                  <h2 id={id} className={className} {...props}>
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggleItem(id)}
+                      className="progress-checkbox"
+                    />
+                    <span>{children}</span>
+                  </h2>
+                );
+              },
+              h3: ({ children, className, ...props }) => {
+                const id = headingId(children);
+                return <h3 id={id} className={className} {...props}>{children}</h3>;
+              },
               code({ className, children, ...props }) {
                 const isInline = !className;
                 const codeStr = String(children).replace(/\n$/, '');
