@@ -45,6 +45,18 @@ export default function LabPage() {
       .finally(() => setLoading(false));
   }, [location.pathname]);
 
+  // After content renders, scroll to the heading named in the URL hash
+  // (e.g. when arriving from a topic search result).
+  useEffect(() => {
+    if (loading || !location.hash) return;
+    const id = decodeURIComponent(location.hash.slice(1));
+    const timer = setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [loading, location.hash, content]);
+
   const name = decodedPath
     .replace('.md', '')
     .replace(/^\d+-/, '')

@@ -23,3 +23,9 @@ export async function fetchReadme() {
   if (!res.ok) throw new Error('Failed to fetch readme');
   return res.json();
 }
+
+export async function fetchSearchIndex() {
+  const res = await fetch(`${BASE}/search-index`);
+  if (!res.ok) throw new Error('Failed to fetch search index');
+  return res.json();
+}

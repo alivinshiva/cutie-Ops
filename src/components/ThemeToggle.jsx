@@ -1,10 +1,11 @@
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, BookOpen } from 'lucide-react';
+import { Sun, Moon, BookOpen, Coffee } from 'lucide-react';
 
 const themes = [
   { key: 'dark', icon: Moon, label: 'Dark mode' },
   { key: 'light', icon: Sun, label: 'Light mode' },
   { key: 'reader', icon: BookOpen, label: 'Reader mode' },
+  { key: 'macchiato', icon: Coffee, label: 'Catppuccin Macchiato' },
 ];
 
 export default function ThemeToggle() {

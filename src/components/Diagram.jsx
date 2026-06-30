@@ -1,38 +1,52 @@
 import { useEffect, useRef } from 'react';
+import { useTheme } from '../context/ThemeContext';
+
+const MERMAID_PALETTES = {
+  light: {
+    background: '#ffffff', primaryColor: '#e8e8e8', primaryBorderColor: '#999999',
+    primaryTextColor: '#111111', lineColor: '#666666', secondaryColor: '#f5f5f5',
+    tertiaryColor: '#fafafa', clusterBkg: '#f0f0f0', clusterBorder: '#cccccc',
+    edgeLabelBackground: '#ffffff', nodeBorder: '#888888',
+  },
+  dark: {
+    background: '#1a1a1a', primaryColor: '#333333', primaryBorderColor: '#666666',
+    primaryTextColor: '#f5f5f5', lineColor: '#999999', secondaryColor: '#2a2a2a',
+    tertiaryColor: '#222222', clusterBkg: '#1a1a1a', clusterBorder: '#444444',
+    edgeLabelBackground: '#1a1a1a', nodeBorder: '#666666',
+  },
+  // Catppuccin Macchiato
+  macchiato: {
+    background: '#1e2030', primaryColor: '#363a4f', primaryBorderColor: '#8087a2',
+    primaryTextColor: '#cad3f5', lineColor: '#a5adcb', secondaryColor: '#494d64',
+    tertiaryColor: '#24273a', clusterBkg: '#1e2030', clusterBorder: '#494d64',
+    edgeLabelBackground: '#1e2030', nodeBorder: '#8087a2',
+  },
+};
 
 export default function Diagram({ definition }) {
   const ref = useRef(null);
-  const initialized = useRef(false);
+  const { theme } = useTheme();
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         const mermaid = await import('mermaid');
-        if (!initialized.current) {
-          const isLight = document.documentElement.classList.contains('light') || document.documentElement.classList.contains('reader');
-          mermaid.default.initialize({
-            theme: 'base',
-            themeVariables: {
-              background: isLight ? '#ffffff' : '#1a1a1a',
-              primaryColor: isLight ? '#e8e8e8' : '#333333',
-              primaryBorderColor: isLight ? '#999999' : '#666666',
-              primaryTextColor: isLight ? '#111111' : '#f5f5f5',
-              lineColor: isLight ? '#666666' : '#999999',
-              secondaryColor: isLight ? '#f5f5f5' : '#2a2a2a',
-              tertiaryColor: isLight ? '#fafafa' : '#222222',
-              clusterBkg: isLight ? '#f0f0f0' : '#1a1a1a',
-              clusterBorder: isLight ? '#cccccc' : '#444444',
-              edgeLabelBackground: isLight ? '#ffffff' : '#1a1a1a',
-              nodeBorder: isLight ? '#888888' : '#666666',
-            },
-            flowchart: { useMaxWidth: true, htmlLabels: true },
-            sequence: { useMaxWidth: true },
-          });
-          initialized.current = true;
-        }
+        const palette =
+          theme === 'macchiato' ? MERMAID_PALETTES.macchiato
+          : theme === 'light' || theme === 'reader' ? MERMAID_PALETTES.light
+          : MERMAID_PALETTES.dark;
+        mermaid.default.initialize({
+          theme: 'base',
+          themeVariables: palette,
+          flowchart: { useMaxWidth: true, htmlLabels: true },
+          sequence: { useMaxWidth: true },
+        });
         if (!cancelled && ref.current) {
-          ref.current.innerHTML = '';
+          // Restore the source so re-renders (e.g. theme switch) work after
+          // mermaid has replaced the node contents with an SVG.
+          ref.current.textContent = definition;
+          ref.current.removeAttribute('data-processed');
           await mermaid.default.run({
             nodes: [ref.current],
             suppressErrors: true,
@@ -45,7 +59,7 @@ export default function Diagram({ definition }) {
       }
     })();
     return () => { cancelled = true; };
-  }, [definition]);
+  }, [definition, theme]);
 
   return (
     <div className="mermaid" ref={ref}>

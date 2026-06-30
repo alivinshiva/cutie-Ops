@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Menu } from 'lucide-react';
 import Sidebar from './Sidebar';
 import ThemeToggle from './ThemeToggle';
+import SearchBar from './SearchBar';
 import { fetchStructure } from '../utils/api';
 
 export default function Layout() {
@@ -33,7 +34,9 @@ export default function Layout() {
             >
               <Menu size={20} />
             </button>
-            <div className="flex-1" />
+            <div className="flex-1 flex justify-center px-2 sm:px-4">
+              <SearchBar />
+            </div>
             <ThemeToggle />
           </div>
         </header>

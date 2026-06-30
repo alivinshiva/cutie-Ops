@@ -10,10 +10,11 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.remove('dark', 'light', 'reader');
+    root.classList.remove('dark', 'light', 'reader', 'macchiato');
     if (theme === 'dark') root.classList.add('dark');
     else if (theme === 'light') root.classList.add('light');
     else if (theme === 'reader') root.classList.add('reader');
+    else if (theme === 'macchiato') root.classList.add('macchiato');
     localStorage.setItem('cutie-theme', theme);
   }, [theme]);
 
