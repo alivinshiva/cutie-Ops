@@ -11,7 +11,7 @@ export default function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex items-center gap-1 p-1 bg-surface-secondary rounded-xl border border-border">
+    <div className="flex items-center gap-1">
       {themes.map((t) => {
         const Icon = t.icon;
         const isActive = theme === t.key;

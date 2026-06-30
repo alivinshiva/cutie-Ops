@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, BookOpen, Network, Terminal, Cpu, Container, Shield, BarChart, Lock, Target, ChevronDown, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import ThemeToggle from './ThemeToggle';
+
 
 const weekIcons = {
   0: BookOpen,
@@ -145,9 +145,6 @@ export default function Sidebar({ structure, isOpen, onClose }) {
           })}
         </nav>
 
-        <div className="sticky bottom-0 bg-surface border-t border-border p-4">
-          <ThemeToggle />
-        </div>
       </aside>
     </>
   );
