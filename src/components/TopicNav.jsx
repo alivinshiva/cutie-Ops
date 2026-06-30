@@ -52,7 +52,7 @@ export default function TopicNav({ content }) {
   if (topics.length === 0) return null;
 
   return (
-    <nav className="fixed right-0 top-14 bottom-0 w-[20vw] max-w-60 border-l border-border bg-surface/95 z-20 flex flex-col overflow-y-auto">
+    <nav className="fixed right-0 top-14 bottom-0 w-[25vw] max-w-72 bg-surface/95 z-20 flex flex-col overflow-y-auto">
       <div className="mt-auto mb-auto p-5 w-full">
         <div className="text-sm font-semibold uppercase tracking-wider text-content-muted mb-5">
           On this page
