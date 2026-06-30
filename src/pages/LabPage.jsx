@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import { fetchContent, fetchStructure } from '../utils/api';
 import MarkdownContent from '../components/MarkdownContent';
+import TopicNav from '../components/TopicNav';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { ArrowLeft, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
 
@@ -77,68 +78,75 @@ export default function LabPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Breadcrumb */}
-      <div className="flex flex-wrap items-center gap-2 text-sm text-content-muted">
-        <Link to="/" className="hover:opacity-80 transition-opacity">Home</Link>
+    <div className="flex gap-8">
+      <div className="flex-1 min-w-0 space-y-6">
+        {/* Breadcrumb */}
+        <div className="flex flex-wrap items-center gap-2 text-sm text-content-muted">
+          <Link to="/" className="hover:opacity-80 transition-opacity">Home</Link>
+          {weekNum && (
+            <>
+              <span>/</span>
+              <Link to={`/week/${weekNum}`} className="hover:opacity-80 transition-opacity">Week {weekNum}</Link>
+            </>
+          )}
+          <span>/</span>
+          <span className="text-content truncate max-w-[200px]">{name}</span>
+        </div>
+
+        {/* Back to week */}
         {weekNum && (
-          <>
-            <span>/</span>
-            <Link to={`/week/${weekNum}`} className="hover:opacity-80 transition-opacity">Week {weekNum}</Link>
-          </>
+          <Link
+            to={`/week/${weekNum}`}
+            className="inline-flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors"
+          >
+            <ArrowLeft size={16} />
+            Back to Week {weekNum}
+          </Link>
         )}
-        <span>/</span>
-        <span className="text-content truncate max-w-[200px]">{name}</span>
-      </div>
 
-      {/* Back to week */}
-      {weekNum && (
-        <Link
-          to={`/week/${weekNum}`}
-          className="inline-flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors"
-        >
-          <ArrowLeft size={16} />
-          Back to Week {weekNum}
-        </Link>
-      )}
-
-      {/* Title */}
-      <div className="flex items-start gap-3">
-        <FileText size={20} className="text-accent mt-1 shrink-0" />
-        <h1 className="text-2xl font-bold text-content">{name}</h1>
-      </div>
-
-      {/* Content */}
-      <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
-        <ErrorBoundary>
-          <MarkdownContent content={content} />
-        </ErrorBoundary>
-      </div>
-
-      {/* Prev/Next navigation */}
-      <div className="flex items-center justify-between pt-4 border-t border-border">
-        <div>
-          {prev && (
-            <Link
-                  to={`/lab/${prev.path.replace('.md', '')}`}
-              className="flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors group"
-            >
-              <ChevronLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
-              <span className="truncate max-w-[200px]">{(prev.name || prev.path.split('/').pop()).replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
-            </Link>
-          )}
+        {/* Title */}
+        <div className="flex items-start gap-3">
+          <FileText size={20} className="text-accent mt-1 shrink-0" />
+          <h1 className="text-2xl font-bold text-content">{name}</h1>
         </div>
-        <div className="text-right">
-          {next && (
-            <Link
-              to={`/lab/${next.path.replace('.md', '')}`}
-              className="flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors group"
-            >
-              <span className="truncate max-w-[200px]">{(next.name || next.path.split('/').pop()).replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
-              <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
-            </Link>
-          )}
+
+        {/* Content */}
+        <div className="bg-card border border-border rounded-xl p-6 sm:p-8">
+          <ErrorBoundary>
+            <MarkdownContent content={content} />
+          </ErrorBoundary>
         </div>
+
+        {/* Prev/Next navigation */}
+        <div className="flex items-center justify-between pt-4 border-t border-border">
+          <div>
+            {prev && (
+              <Link
+                to={`/lab/${prev.path.replace('.md', '')}`}
+                className="flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors group"
+              >
+                <ChevronLeft size={16} className="group-hover:-translate-x-0.5 transition-transform" />
+                <span className="truncate max-w-[200px]">{(prev.name || prev.path.split('/').pop()).replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
+              </Link>
+            )}
+          </div>
+          <div className="text-right">
+            {next && (
+              <Link
+                to={`/lab/${next.path.replace('.md', '')}`}
+                className="flex items-center gap-2 text-sm text-content-muted hover:text-accent transition-colors group"
+              >
+                <span className="truncate max-w-[200px]">{(next.name || next.path.split('/').pop()).replace('.md', '').replace(/^\d+-/, '').replace(/-/g, ' ')}</span>
+                <ChevronRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Secondary timeline nav */}
+      <div className="hidden xl:block w-48 shrink-0">
+        <TopicNav content={content} />
       </div>
     </div>
   );
