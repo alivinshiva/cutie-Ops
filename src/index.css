@@ -15,6 +15,8 @@
   --color-accent-light: rgba(255, 255, 255, 0.08);
   --color-border: #2a2a2a;
   --color-code-bg: #000000;
+  --color-link: #6bcbff;
+  --color-link-hover: #a8dcff;
   --color-term-prompt: #00d68f;
   --color-term-comment: #5fafff;
   --color-term-output: #888888;
@@ -39,6 +41,8 @@
   --color-accent-light: rgba(0, 0, 0, 0.06);
   --color-border: #e0e0e0;
   --color-code-bg: #f5f5f5;
+  --color-link: #0055cc;
+  --color-link-hover: #003d99;
   --color-term-prompt: #00875a;
   --color-term-comment: #0055cc;
   --color-term-output: #666666;
@@ -63,6 +67,8 @@
   --color-accent-light: rgba(0, 0, 0, 0.06);
   --color-border: #d0d0d0;
   --color-code-bg: #e0e0e0;
+  --color-link: #0055cc;
+  --color-link-hover: #003d99;
   --color-term-prompt: #00875a;
   --color-term-comment: #0055cc;
   --color-term-output: #666666;
@@ -139,12 +145,13 @@ body {
   margin-bottom: 0.75rem;
 }
 .prose a {
-  color: var(--color-accent);
+  color: var(--color-link);
   text-decoration: underline;
   text-underline-offset: 2px;
+  transition: color 200ms;
 }
 .prose a:hover {
-  color: var(--color-accent-hover);
+  color: var(--color-link-hover);
 }
 .prose ul {
   list-style-type: disc;
